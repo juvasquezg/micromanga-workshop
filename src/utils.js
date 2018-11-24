@@ -1,8 +1,9 @@
 const crypto = require('crypto')
 
-// const { fetchUrl } = require('fetch')
-const request = require('request')
+const jwt = require('jsonwebtoken')
 const axios = require('axios')
+
+const config = require('./config')
 
 const uuidv4 = () => {
   return ([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g, c =>
@@ -62,8 +63,23 @@ const generateError = (error) => {
   }
 }
 
+const verifyToken = (token) => {
+  return new Promise((resolve, reject) => {
+    jwt.verify(token, config.auth.secret, (error, decoded) => {
+      if (error) {
+        reject(error)
+
+        return
+      }
+
+      resolve(decoded)
+    })
+  })
+}
+
 module.exports = {
   fetch,
   generateError,
   uuid: uuidv4,
+  verifyToken,
 }
