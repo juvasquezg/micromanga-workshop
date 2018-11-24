@@ -1,0 +1,4 @@
+npm start .\src\services\auth\login.js -- --listen tcp://localhost:3001
+npm start .\src\services\auth\register.js -- --listen tcp://localhost:3002
+npm start .\src\gateway.js
+http://localhost:8500/
